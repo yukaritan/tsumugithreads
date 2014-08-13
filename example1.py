@@ -3,8 +3,7 @@
 from concurrent.futures.thread import ThreadPoolExecutor
 
 from ircbotmock import IRCBotMock
-from omeglemock import OmegleMock
-
+from omeglemock1 import OmegleMock
 
 ircbot = IRCBotMock()
 omegle = OmegleMock()

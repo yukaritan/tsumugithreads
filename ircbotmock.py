@@ -1,6 +1,4 @@
 from time import sleep
-from main import ircbot
-from omeglemock import OmegleMock
 
 
 class IRCBotMock:
@@ -8,16 +6,22 @@ class IRCBotMock:
         self._running = True
         self._omegle = None
 
-    def set_omegle(self, omegle: OmegleMock):
-        self._omegle = ircbot
+    def set_omegle(self, omegle):
+        self._omegle = omegle
 
     def send_to_channel(self, message: str):
-        print("sending message to channel:", message)
+        print("IRCBotMock.send_to_channel('%s')" % message)
 
     def send_to_omegle(self, message: str):
-        print("sending message to omegle:", message)
+        print("IRCBotMock.send_to_omegle('%s')" % message)
+        self._omegle.send(message)
 
     def start(self):
-        print("Mocked Omegle class is sending things to the IRC bot")
-        self._omegle.send("things from irc")
-        sleep(5)
+        while self._running:
+            self.send_to_omegle("things from irc")
+            sleep(3)
+        print("IRCBotMock exits")
+
+
+    def stop(self):
+        self._running = False
